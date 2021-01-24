@@ -10,7 +10,7 @@ A PWA app to keep track of your monthly expenses
 * [Install](#install)
 
 ## General info
-This application uses a MongoDB database to keep track of spending and deposits into a monthly budget. 
+This application uses a MongoDB database to keep track of spending and deposits into a monthly budget. It has offline functionality with IndexedDB saving queries locally until it is online again. 
 	
 ## Technologies
 Project is created with:
@@ -21,6 +21,7 @@ Project is created with:
 * Morgan 
 * Compression
 * Lite-server
+* IndexedDB
 
 ## Install
 To install locally, download the repository. Make sure you have node.js installed. Open your terminal and run

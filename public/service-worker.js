@@ -1,33 +1,12 @@
-// self.addEventListener('install', (event) => {
-//     event.waitUntil(
-//       caches.open('static').then((cache) => {
-//         return cache.addAll([
-//           './',
-          // './index.html',
-          // './style.css',
-          // './icons/icon-192x192.png',
-          // './icons/icon-512x512.png',
-//         ]);
-//       })
-//     );
-//     console.log('Install');
-//   });
-  
-//   self.addEventListener('fetch', (event) => {
-//     event.respondWith(
-//       caches.match(event.request).then((response) => {
-//         return response || fetch(event.request);
-//       })
-//     );
-//   });
-  
 const FILES_TO_CACHE = [
   "/",
   '/index.html',
   '/style.css',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
-  "/dist/bundle.js",
+  "https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/materia/bootstrap.css",
+  "https://use.fontawesome.com/releases/v5.8.2/css/all.css",
+  "/index.js",
   "/db.js"
 ];
 
@@ -68,13 +47,13 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   // non GET requests are not cached and requests to other origins are not cached
-  // if (
-  //   event.request.method !== "GET" ||
-  //   !event.request.url.startsWith(self.location.origin)
-  // ) {
-  //   event.respondWith(fetch(event.request));
-  //   return;
-  // }
+  if (
+    event.request.method !== "GET" ||
+    !event.request.url.startsWith(self.location.origin)
+  ) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
 
   // handle runtime GET requests for data from /api routes
   if (event.request.url.includes("/api/transaction")) {
@@ -83,7 +62,7 @@ self.addEventListener("fetch", event => {
       caches.open(RUNTIME_CACHE).then(cache => {
         return fetch(event.request)
           .then(response => {
-            cache.put(event.request.url, response.clone());
+            cache.put(event.request, response.clone());
             return response;
           })
           .catch(() => caches.match(event.request));
