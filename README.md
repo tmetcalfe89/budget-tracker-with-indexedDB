@@ -1,4 +1,4 @@
-# Budget-Tracker-PWA
+# budget-tracker-with-indexedDB
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 (https://safe-escarpment-35566.herokuapp.com/)
