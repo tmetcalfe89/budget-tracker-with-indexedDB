@@ -1,37 +1,39 @@
+const path = require("path");
 const router = require("express").Router();
 const Transaction = require("../models/transaction");
 
-router.post("/api/transaction", ({body}, res) => {
+router.post("/api/transaction", ({ body }, res) => {
   Transaction.create(body)
-    .then(dbTransaction => {
+    .then((dbTransaction) => {
       res.json(dbTransaction);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(404).json(err);
     });
 });
 
-router.post("/api/transaction/bulk", ({body}, res) => {
+router.post("/api/transaction/bulk", ({ body }, res) => {
   Transaction.insertMany(body)
-    .then(dbTransaction => {
+    .then((dbTransaction) => {
       res.json(dbTransaction);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(404).json(err);
     });
 });
 
 router.get("/api/transaction", (req, res) => {
-  Transaction.find({}).sort({date: -1})
-    .then(dbTransaction => {
+  Transaction.find({})
+    .sort({ date: -1 })
+    .then((dbTransaction) => {
       res.json(dbTransaction);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(404).json(err);
     });
 });
 
-router.get("*", function(req, res) {
+router.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
